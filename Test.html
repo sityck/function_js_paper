@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>TEAM PROFIL</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdn.steemjs.com/lib/latest/steem.min.js"></script>
+  <style type="text/css">
+  body{
+    font: 400 15px/1.8 Lato, sans-serif;
+  } 
+    .jumbotron {
+        background-size: cover;
+        position:relative;
+        height: 100px;
+
+    }
+    .profil{
+        position:absolute; 
+        bottom:-30px; left:40px;
+        width: 100px;
+        height: 100px;
+
+    }
+    .text{
+        padding-top: 0 !important;
+        padding: 30px;
+        
+      color: #111;
+    }
+    .col-sm-4{
+        padding:10px;
+    }
+    h4{
+        letter-spacing: 10px;      
+      font-size: 20px;
+    }
+  </style>
+</head>
+<body>
+<h4 class="text-center"><|==== PROFIL LISTS ====|></h4>
+<div class="container"> 
+ <div  id="user"></div>
+</div>
+<script type="text/javascript">
+    var names=["utopian-io", "dlive", "ned", "iamfo", "sogata", "arie.steem"];
+    steem.api.getAccounts(names, function(err, result) {
+        for(i=0;i<names.length;i++){
+			console.log(result[i]);
+            var data=result[i];
+            eval('var obj='+data["json_metadata"]);
+            var display='<div class="col-sm-4"><div class="jumbotron" style="background-image:url('+obj.profile["cover_image"]+')"><img class="img-circle profil img-thumbnail" src="'+obj.profile["profile_image"]+'"></div><div class="text text-center"><div class="text text-center"><h4>'+data["name"]+'</h4><p>'+data["sbd_balance"]+' | '+data["balance"]+' </p></div></div>';
+            $("#user").append(display);         
+        }
+    }); 
+</script>
+</body>
+</html>

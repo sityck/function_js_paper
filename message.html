@@ -1,0 +1,43 @@
+<!doctype html>
+<head>
+<meta charset="UTF-8">
+<title>Create Post</title>
+<script src="steem.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div style="text-align:center">
+<p>此为获取站内信测试页面</p>
+<p>站内信使用custom_json OP由主席进行发表，评审人固定关注主席的站内信</p>
+<p>结构体：to,message.(此代码 to = follower; message = following)</p>
+<p id="total">json-mate: &nbsp;&nbsp;&nbsp;</p>
+<p id="value">message: &nbsp;&nbsp;&nbsp;  </p>
+</div>
+<script type="text/javascript">
+
+	steem.api.setOptions({ url: 'https://api.steemit.com' });
+	var limit = 5;
+	var chairman = "takio-t";
+	steem.api.getAccountHistory(chairman, -1, limit, function(err, result) {
+	  console.log(err, result);
+	  for(var i=0;i <= limit;i ++)
+		  {
+			  if(result[i][1].op[0] == "custom_json" && result[i][1].op[1].id == "follow")
+			  {
+				  var custom = result[i][1].op[1].json;
+				  //document.write(custom);
+				  tmp = JSON.parse(custom);
+				  if(tmp[1].follower != chairman)
+					  break;
+				  obj = tmp[1].following;
+				  $("#total").append(custom);
+				  $("#value").append(obj);
+			  }
+		  }
+
+	});
+</script>
+
+</body>
+</html>
