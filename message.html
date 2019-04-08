@@ -17,7 +17,7 @@
 <script type="text/javascript">
 
 	steem.api.setOptions({ url: 'https://api.steemit.com' });
-	var limit = 5;
+	var limit = 10;
 	var chairman = "takio-t";
 	steem.api.getAccountHistory(chairman, -1, limit, function(err, result) {
 	  console.log(err, result);
